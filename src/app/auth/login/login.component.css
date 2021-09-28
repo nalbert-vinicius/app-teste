@@ -1,0 +1,26 @@
+.position-form{
+    margin: 19rem;
+    height: 1rem;
+}
+.position-absolute{
+    position: inherit!important;
+    background-color: aliceblue;
+    border-radius: 2rem;
+    text-align: center;
+    padding: 3rem;
+}
+
+.button-style{
+    border-radius: 1rem;
+    width: 8rem;
+}
+
+.title-page{
+    color: #333333;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.input-style{
+    border-radius: 1rem;
+}
