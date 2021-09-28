@@ -2,32 +2,32 @@
     <div class="position-relative position-form">
         <div class="position-absolute top-50 start-50 translate-middle">
             <h1 class="title-page">Criar Conta</h1>
-            <form>
+            <form [formGroup]="form" (ngSubmit)="cadastro()">
                 <div class="mb-3">
                   <label class="form-label">Nome usuário</label>
-                  <input type="text" class="form-control input-style">
+                  <input formControlName="nome" type="text" class="form-control input-style">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Nick usuário</label>
-                    <input type="text" class="form-control input-style">
+                    <input formControlName="nickname" type="text" class="form-control input-style">
                   </div>
                 <div class="mb-3">
                   <label class="form-label">Senha</label>
-                  <input type="password" class="form-control input-style">
+                  <input formControlName="senha" type="password" class="form-control input-style">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">CPF</label>
-                    <input type="text" class="form-control input-style">
+                    <input formControlName="cpf" mask="000.000.000-00" type="text" class="form-control input-style">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Data de Nascimento</label>
-                    <input type="date" class="form-control input-style">
+                    <input formControlName="data_nasc" type="date" class="form-control input-style">
                 </div>
                 <div class="mb-3">
                     <div class="form-text">Já possui conta?</div>
                     <a class="form-text " routerLink="/auth/login">Entrar aqui!</a>
                 </div>
-                <button type="submit" class="btn btn-primary button-style">Submit</button>
+                <button [disabled]="form.invalid!" type="submit" class="btn btn-primary button-style">Criar conta</button>
             </form>
         </div>
     </div>

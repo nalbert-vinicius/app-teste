@@ -41,7 +41,6 @@ export class AuthService {
         return this.http.post<any>( url, null, { headers } )
             .pipe(
               map( resp => {
-                  console.log(resp)
                  this._usuario = {
                    message: resp.message,
                    nome: resp.nome,
