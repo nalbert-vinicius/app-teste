@@ -18,19 +18,22 @@ export class AuthService {
         private userState: UserState
     ){ }
 
-
+    get usuario() {
+        return { ...this._usuario};
+    }
 
     login(nickname: String, senha: String){
         const url = `${this.baseUrl}api/user/login`;
         const data = {nickname, senha}
         return this.http.post<any>(url, data).pipe(
             tap(result =>{
+                console.log(result)
                 if(result){
                     this.userState.setActiveUser(result);
                     localStorage.setItem('token', result.token!);
                 }
             }),map(result => result),
-            catchError( err => of(err.error.msg))
+            catchError( err => of(err.error.message))
         )
     }
 

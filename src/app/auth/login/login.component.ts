@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
       if(ok.sucess == true){
         this.route.navigateByUrl('/dashboard');
       }else{
-        //
+        console.log(ok)
+        Swal.fire('Error', ok, 'error');
       }
     })
   }

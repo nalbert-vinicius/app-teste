@@ -40,7 +40,6 @@ export class RegistrarComponent implements OnInit {
       Swal.fire('Sucess', data.message, 'success');
       this.route.navigateByUrl('/auth/login');
     }).catch(error =>{
-      console.log(error)
       Swal.fire('Error', error.error.message, 'error');
     })
   }
