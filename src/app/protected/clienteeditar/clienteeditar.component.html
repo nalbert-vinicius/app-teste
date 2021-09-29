@@ -1,0 +1,29 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="salvar()">
+        <div class="mb-3">
+          <label class="form-label">Nome usuário</label>
+          <input formControlName="nome" type="text" class="form-control input-style">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nick usuário</label>
+            <input formControlName="nickname" type="text" class="form-control input-style">
+          </div>
+        <div class="mb-3">
+          <label class="form-label">Senha</label>
+          <input formControlName="senha" type="password" class="form-control input-style">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CPF</label>
+            <input formControlName="cpf" mask="000.000.000-00" type="text" class="form-control input-style">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Data de Nascimento</label>
+            <input formControlName="data_nasc" type="date" class="form-control input-style">
+        </div>
+        <div class="mb-3">
+            <div class="form-text">Já possui conta?</div>
+            <a class="form-text " routerLink="/auth/login">Entrar aqui!</a>
+        </div>
+        <button [disabled]="form.invalid!" type="submit" class="btn btn-primary button-style">Criar conta</button>
+    </form>
+</div>

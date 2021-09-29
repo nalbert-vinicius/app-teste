@@ -4,12 +4,16 @@ import { MenuComponent } from './menu/menu.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProtectedRoutingModule } from './protected-routing.module';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { ClienteeditarComponent } from './clienteeditar/clienteeditar.component';
 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    DashboardComponent
+    DashboardComponent,
+    CadastroComponent,
+    ClienteeditarComponent
   ],
   imports: [
     CommonModule,
