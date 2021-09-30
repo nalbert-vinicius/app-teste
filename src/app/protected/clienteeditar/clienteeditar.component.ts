@@ -33,8 +33,6 @@ export class ClienteeditarComponent implements OnInit, OnDestroy  {
     public tellService: TelefoneService
   ) { }
 
-  ngOnDestroy(): void { }
-
   ngOnInit() {
     var data = this.activatedRoute.params.subscribe((id:any) =>{
       this.userId = id.id;
@@ -49,6 +47,7 @@ export class ClienteeditarComponent implements OnInit, OnDestroy  {
       }
     })
     this.tellService.getTelefones(this.userId).then((data: any) =>{
+      debugger
       this.tell = data.tell
     })
   }
@@ -80,7 +79,6 @@ export class ClienteeditarComponent implements OnInit, OnDestroy  {
                Swal.fire('Error', error.error.message, 'error');
             })
         });
-        return;
       }
       this.updateUser();
     }
@@ -95,7 +93,6 @@ export class ClienteeditarComponent implements OnInit, OnDestroy  {
     this.tell.forEach(element => {
       if(telefone == element.telefone){
         this.tell.splice(i, 1)
-        console.log(this.tell)
         Swal.fire('Sucess', 'telefone ja cadastrado', 'error');
         this.ngOnInit();
       }
@@ -125,6 +122,10 @@ export class ClienteeditarComponent implements OnInit, OnDestroy  {
     }).catch(error =>{
       Swal.fire('Error', error.error.message, 'error');
     })
+  }
+
+  ngOnDestroy() {
+    console.log('foo destroy')
   }
 
 }

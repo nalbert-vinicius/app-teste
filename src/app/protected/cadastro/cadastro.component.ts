@@ -22,11 +22,30 @@ export class CadastroComponent implements OnInit {
   }
 
   deletar(userId){
-    this.usuarioService.deletarUser(userId).then((data: any) =>{
-      Swal.fire('Sucess', data.message, 'success');
-      this.ngOnInit()
-    }).catch(error =>{
-      Swal.fire('Error', error.error.message, 'error');
+
+    Swal.fire({
+      title: 'Tem certeza que deseja remover?',
+      text: "Todos os números relacionados serão removidos!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, remover!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        
+      this.usuarioService.deletarUser(userId).then((data: any) =>{
+        Swal.fire('Deleted!',data.message, 'success'
+        )
+        Swal.fire('Sucess', data.message, 'success');
+        this.ngOnInit()
+      }).catch(error =>{
+        Swal.fire('Error', error.error.message, 'error');
+      })
+      }
     })
+
+
   }
 }
