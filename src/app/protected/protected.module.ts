@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ClienteeditarComponent } from './clienteeditar/clienteeditar.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ClienteeditarComponent } from './clienteeditar/clienteeditar.component'
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ProtectedRoutingModule
+    ProtectedRoutingModule,
+    NgxMaskModule.forChild()
   ]
 })
 export class ProtectedModule { }

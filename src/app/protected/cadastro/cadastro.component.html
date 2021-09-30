@@ -1,6 +1,6 @@
 <div class="container position-c">
     <h3>Cadastrar usuários</h3>
-    <button type="button" class="btn btn-primary">Cadastrar</button>
+    <a class="btn btn-primary" routerLink="/dashboard/novo" role="button">Cadastrar</a>
     <table class="table position-t">
         <thead>
           <tr>
@@ -21,7 +21,7 @@
             <td>{{element.data_nasc | date: 'dd/MM/yyyy'}}</td>
             <td>
               <a class="color-l"[routerLink]="['/dashboard/editar', element.idcliente]"><i class="bi bi-pencil-fill"></i></a> 
-                <i class="bi bi-trash2-fill" style="padding-left: 5px;"></i>
+              <i class="bi bi-trash2-fill" (click)="deletar(element.idcliente)" style="padding-left: 5px;"></i>
             </td>
           </tr>
         </tbody>

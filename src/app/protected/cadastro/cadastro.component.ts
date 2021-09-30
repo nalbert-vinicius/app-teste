@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-cadastro',
@@ -21,4 +22,13 @@ export class CadastroComponent implements OnInit {
     console.log(this.user)
   }
 
+  deletar(userId){
+    this.usuarioService.deletarUser(userId).then((data: any) =>{
+      Swal.fire('Sucess', data.message, 'success');
+      this.ngOnInit()
+    }).catch(error =>{
+      console.log(error)
+      Swal.fire('Error', error.error.message, 'error');
+    })
+  }
 }

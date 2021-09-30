@@ -20,4 +20,16 @@ export class UsuarioService extends httpService{
   getUsuarios(){
     return this.http.get(`${environment.baseUrl}api/user`, this.httpOptions).toPromise().then((data)=> {return data})
   }
+
+  getUserById(data){
+    return this.http.get(`${environment.baseUrl}api/user/biid/${data}`, this.httpOptions).toPromise().then((data:any) =>  {return data.users[0]});
+  }
+
+  updateUser(userId, data){
+    return this.http.patch(`${environment.baseUrl}api/user/update/${userId}`, data, this.httpOptions).toPromise().then((data:any) =>  {return data});
+  }
+
+  deletarUser(userId){
+    return this.http.delete(`${environment.baseUrl}api/user/delete/${userId}`, this.httpOptions).toPromise().then((data:any) =>  {return data});
+  }
 }

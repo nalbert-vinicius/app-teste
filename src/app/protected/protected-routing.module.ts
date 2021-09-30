@@ -15,6 +15,7 @@ const routes: Routes = [
       {path: 'admin', component: DashboardComponent},
       {path: 'cadastro', component: CadastroComponent},
       {path: 'editar/:id', component: ClienteeditarComponent},
+      {path: 'novo', component: ClienteeditarComponent},
       {path: '**', redirectTo: 'admin'}
     ]
   }

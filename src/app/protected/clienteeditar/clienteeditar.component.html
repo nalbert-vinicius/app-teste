@@ -1,29 +1,52 @@
-<div class="container">
+<div class="container position-c">
+  <h3>Cadastrar usuários</h3>
     <form [formGroup]="form" (ngSubmit)="salvar()">
-        <div class="mb-3">
+      <div class="row">
+        <div class="col">
           <label class="form-label">Nome usuário</label>
           <input formControlName="nome" type="text" class="form-control input-style">
         </div>
-        <div class="mb-3">
+        <div class="col">
             <label class="form-label">Nick usuário</label>
             <input formControlName="nickname" type="text" class="form-control input-style">
-          </div>
-        <div class="mb-3">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
           <label class="form-label">Senha</label>
           <input formControlName="senha" type="password" class="form-control input-style">
         </div>
-        <div class="mb-3">
+        <div class="col">
             <label class="form-label">CPF</label>
             <input formControlName="cpf" mask="000.000.000-00" type="text" class="form-control input-style">
         </div>
-        <div class="mb-3">
+        <div class="col">
             <label class="form-label">Data de Nascimento</label>
             <input formControlName="data_nasc" type="date" class="form-control input-style">
         </div>
-        <div class="mb-3">
-            <div class="form-text">Já possui conta?</div>
-            <a class="form-text " routerLink="/auth/login">Entrar aqui!</a>
-        </div>
-        <button [disabled]="form.invalid!" type="submit" class="btn btn-primary button-style">Criar conta</button>
+      </div>
+
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary button-style" (click)="inserirTell()">Incluir telefone</button>
+        <button type="submit" [disabled]="form.invalid!" class="btn btn-primary button-style" style="margin-left: 2rem;">Salvar Operações</button>
+      </div>
+  
+      <table class="table position-t">
+        <thead>
+          <tr>
+            <th scope="col">Telefone</th>
+            <th scope="col">#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of tell">
+            <th scope="row"><input type="text" #data (keyup)="keyup(data.value)" value="aaa" mask="(00) 00000-0000" class="form-control input-style"></th>
+            <td>
+              <i class="bi bi-trash2-fill" (click)="deletar(element.idcliente)" style="padding-left: 5px;"></i>
+            </td>
+          </tr>
+        </tbody>
+    </table>
     </form>
 </div>
