@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
       if(ok.sucess == true){
         this.route.navigateByUrl('/dashboard');
       }else{
-        console.log(ok)
         Swal.fire('Error', ok, 'error');
       }
     })

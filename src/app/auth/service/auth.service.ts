@@ -27,7 +27,6 @@ export class AuthService {
         const data = {nickname, senha}
         return this.http.post<any>(url, data).pipe(
             tap(result =>{
-                console.log(result)
                 if(result){
                     this.userState.setActiveUser(result);
                     localStorage.setItem('token', result.token!);

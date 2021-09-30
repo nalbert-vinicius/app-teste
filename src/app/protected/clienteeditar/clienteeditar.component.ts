@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
   templateUrl: './clienteeditar.component.html',
   styleUrls: ['./clienteeditar.component.css']
 })
-export class ClienteeditarComponent implements OnInit {
+export class ClienteeditarComponent implements OnInit, OnDestroy  {
 
   user: any;
   userId: any;
@@ -33,11 +33,13 @@ export class ClienteeditarComponent implements OnInit {
     public tellService: TelefoneService
   ) { }
 
+  ngOnDestroy(): void { }
+
   ngOnInit() {
-    this.activatedRoute.params.subscribe((id:any) =>{
+    var data = this.activatedRoute.params.subscribe((id:any) =>{
       this.userId = id.id;
       if(this.userId!=undefined){
-        this.usuariosService.getUserById(id.id).then((data) =>{
+        this.usuariosService.getUserById(this.userId).then((data) =>{
         this.form.controls['nome'].setValue(data.nome)
         this.form.controls['nickname'].setValue(data.nickname)
         this.form.controls['senha'].setValue(data.senha)
@@ -45,6 +47,9 @@ export class ClienteeditarComponent implements OnInit {
         this.form.controls['data_nasc'].setValue(data.data_nasc)
       })
       }
+    })
+    this.tellService.getTelefones(this.userId).then((data: any) =>{
+      this.tell = data.tell
     })
   }
 
@@ -58,6 +63,7 @@ export class ClienteeditarComponent implements OnInit {
         data_nasc: this.form.value.data_nasc
       }
       this.usuariosService.cadastroUsuario(user).then((data: any) =>{
+        this.ngOnInit()
         Swal.fire('Sucess', data.message, 'success');
         this.route.navigateByUrl('/dashboard/cadastro');
       }).catch(error =>{
@@ -65,31 +71,60 @@ export class ClienteeditarComponent implements OnInit {
       })
     }else{
       if(this.tell != []){
-        this.val.forEach(element => {
-          this.tellService.salvarTelefone(element).then((data: any) => {
-             console.log(data)
-          })
+        this.tell.forEach(element => {
+          this.tellService.salvarTelefone(this.userId, element).then((data: any) => {
+              if(data.sucess = true){
+                this.updateUser();
+              }
+          }).catch(error =>{
+               Swal.fire('Error', error.error.message, 'error');
+            })
         });
+        return;
       }
-
-      this.usuariosService.updateUser(this.userId, this.form.value).then((data: any) =>{      
-        Swal.fire('Sucess', data.message, 'success');
-        this.route.navigateByUrl('/dashboard/cadastro');
-      }).catch(error =>{
-        console.log(error)
-        Swal.fire('Error', error.error.message, 'error');
-      })
+      this.updateUser();
     }
   }
 
   inserirTell(){
-    this.tell.push('');
+    this.tell.push({telefone: ''});
   }
 
-  keyup(data){
-    if(data.length == 15){
-      this.val.push(data)
+  keyup(i, telefone){
+
+    this.tell.forEach(element => {
+      if(telefone == element.telefone){
+        this.tell.splice(i, 1)
+        console.log(this.tell)
+        Swal.fire('Sucess', 'telefone ja cadastrado', 'error');
+        this.ngOnInit();
+      }
+    });
+
+    if(telefone.length == 15){
+      this.tell.pop();
+      this.tell.push({telefone})
     }
+  }
+
+  deletar(data){
+    this.tellService.deletarTelefone(data).then((data:any) =>{
+      Swal.fire('Sucess', data.message, 'success');
+      this.ngOnInit();
+    }).catch(error =>{
+      Swal.fire('Sucess', 'removido', 'success');
+      this.ngOnInit();
+    })
+  }
+
+  updateUser(){
+    this.usuariosService.updateUser(this.userId, this.form.value).then((data: any) =>{    
+      this.userId = 0
+      Swal.fire('Sucess', data.message, 'success');
+      this.route.navigateByUrl('/dashboard/cadastro');
+    }).catch(error =>{
+      Swal.fire('Error', error.error.message, 'error');
+    })
   }
 
 }

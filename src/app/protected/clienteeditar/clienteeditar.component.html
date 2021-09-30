@@ -28,11 +28,11 @@
       </div>
 
       <div class="mb-3">
-        <button type="button" class="btn btn-primary button-style" (click)="inserirTell()">Incluir telefone</button>
+        <button *ngIf="userId!=undefined" type="button" class="btn btn-primary button-style" (click)="inserirTell()">Incluir telefone</button>
         <button type="submit" [disabled]="form.invalid!" class="btn btn-primary button-style" style="margin-left: 2rem;">Salvar Operações</button>
       </div>
   
-      <table class="table position-t">
+      <table *ngIf="userId!=undefined" class="table position-t">
         <thead>
           <tr>
             <th scope="col">Telefone</th>
@@ -40,10 +40,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let element of tell">
-            <th scope="row"><input type="text" #data (keyup)="keyup(data.value)" value="aaa" mask="(00) 00000-0000" class="form-control input-style"></th>
+          <tr *ngFor="let element of tell, let i = index">
+            <th *ngIf="element.telefone !=''" scope="row">{{element.telefone}}</th>
+            <th *ngIf="element.telefone ==''" scope="row"><input type="text" #data (keyup)="keyup(i, data.value)" mask="(00) 00000-0000" class="form-control input-style"></th>
             <td>
-              <i class="bi bi-trash2-fill" (click)="deletar(element.idcliente)" style="padding-left: 5px;"></i>
+              <i class="bi bi-trash2-fill" (click)="deletar(element.idtelefone)" style="padding-left: 5px;"></i>
             </td>
           </tr>
         </tbody>

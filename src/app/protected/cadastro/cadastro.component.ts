@@ -19,7 +19,6 @@ export class CadastroComponent implements OnInit {
     await this.usuarioService.getUsuarios().then((data: any) =>{
       this.user = data.users;
     })
-    console.log(this.user)
   }
 
   deletar(userId){
@@ -27,7 +26,6 @@ export class CadastroComponent implements OnInit {
       Swal.fire('Sucess', data.message, 'success');
       this.ngOnInit()
     }).catch(error =>{
-      console.log(error)
       Swal.fire('Error', error.error.message, 'error');
     })
   }
